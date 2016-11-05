@@ -1,0 +1,11 @@
+.text {
+	background-color: white;
+	position: absolute;
+	float: right;
+	top: 100px;
+	color: #BA68C8;
+}
+
+a {
+	color: black;
+}

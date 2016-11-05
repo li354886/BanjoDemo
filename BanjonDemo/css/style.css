@@ -1,0 +1,33 @@
+body{
+	background-color: lightblue;
+}
+
+h1 {
+	text-align: center;
+	color: navy;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+.select {
+	text-align: center;
+	
+}
+
+option{
+	text-align: center;
+}
+
+input{
+	width: 250px;
+	margin-bottom: 10px;
+}
+
+
+
+/*#state option{
+	width: 200px;
+	text-align: center;
+}*/

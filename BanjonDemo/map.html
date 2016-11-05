@@ -1,0 +1,147 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+
+</head>
+
+<body> 
+    <div class='text'>
+      Lati: <input type="text" name="Lati"><br>
+      Longi: <input type="text" name="Longi"><br>
+      Keyword: <input type="text" name="Keyword"><br>
+      <input type="submit" value="Submit" onclick="get_data()">
+      <!-- <a href="javascript:void(0);" onclick="showTwitter()">Blue: Price from $2000-$3000 and above $3000</h3> -->
+      <br>
+      <!-- <h3>Yellow: Price from $500-$1000</h3> -->
+    </div>
+    
+    <link rel="stylesheet" type="text/css" href="css/map.css">
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="js/gmaps.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+
+     <!-- <script type="text/javascript" src="gdropdown.js"></script>
+     <script type="text/javascript" src="GMapButton.js"></script> -->
+    <script>
+      $.support.cors = true;
+      var data
+      function get_data() {
+          $.ajax({
+              url: 'http://localhost:5000',
+              type: 'GET',
+              
+              crossDomain: true,
+              
+              // data: 'ID=1&Name=John&Age=10', // or $('#myform').serializeArray()
+              success: function(data) { 
+                
+                var markers = []
+                var map = new GMaps({
+                    div: "#map",
+                    lat: 38.90,
+                    lng: -77.07,
+                    zoom: 12,
+                    width: 1500,
+                    height: 1000,
+                  });
+                map.addMarker({
+                    lat: 38.9072,
+                    lng: -77.0728,
+                    size: 'large'
+                });
+                
+                for (var i = 1; i < 2500; i++) {
+                  var element = data.tasks[i];
+                  if (element.Price > 1000 && element.Price < 2000) {
+                    map.addMarker({
+                    lat: element.Lat,
+                    lng: element.Long,
+                    title: 'Lima',
+                    draggable: true,
+                    infoWindow: {
+                        // content: '<a href=' + element.Site +'>Visit site</a>'
+                        content: '<p>Apartments size:</p>' + '<br>' + element.Size + '<br>' + '<p>Apartments Price</p>' + element.Price + '<br>'
+                        +'<p>Apartments Type</p>' + element.Type + '<br>'
+                        
+                        
+                    },
+                    mouseover: function(e){
+                        this.infoWindow.open(this.map, this); 
+                        // map.addMarker({
+                        //   lat: element.Lat,
+                        //   lng: element.Long
+                        // });
+                        
+                    },
+                    mouseout: function(e) {
+                        this.infoWindow.close(this.map, this);
+                    },
+                    icon: "img/red-dot.jpg",
+                    });
+                  }else if (element.Price > 500 && element.Price < 1000 || element.Price < 500) {
+                    map.addMarker({
+                    lat: element.Lat,
+                    lng: element.Long,
+                    title: 'Lima',
+                    draggable: true,
+                    infoWindow: {
+                        content: '<p>Apartments size:</p>' + '<br>' + element.Size + '<br>' + '<p>Apartments Price</p>' + element.Price + '<br>'
+                        +'<p>Apartments Type</p>' + element.Type + '<br>'
+                        + '<p>See apartments type</p>'
+                        
+                    },
+                    mouseover: function(e){
+                        this.infoWindow.open(this.map, this); 
+                        // map.addMarker({
+                        //   lat: element.Lat,
+                        //   lng: element.Long
+                        // });
+                        
+                    },
+                    mouseout: function(e) {
+                        this.infoWindow.close(this.map, this);
+                    },
+                    icon: "img/yellow-dot.png",
+                   
+                    });
+                  }else if (element.Price > 2000 && element.Price < 3000 || element.Price > 3000){
+                    map.addMarker({
+                      lat: element.Lat,
+                      lng: element.Long,
+                      title: 'Lima',
+                      draggable: true,
+                      infoWindow: {
+                           content: '<p>Apartments size:</p>' + '<br>' + element.Size + '<br>' + '<p>Apartments Price</p>' + element.Price + '<br>'
+                          +'<p>Apartments Type</p>' + element.Type + '<br>'
+                          
+                         
+
+                    },
+                    mouseover: function(e){
+                        this.infoWindow.open(this.map, this); 
+                        // map.addMarker({
+                        //   lat: element.Lat,
+                        //   lng: element.Long
+                        // });
+                        
+                    },
+                    mouseout: function(e) {
+                        this.infoWindow.close(this.map, this);
+                    },
+                    icon: "img/blue-dot.png"
+                    });
+                  }
+                }
+              }
+              
+          });
+
+        }
+        get_data();
+    </script>
+    <div id='main'>
+      <div class="dropDownControl" id="myBox"></div>
+    </div>
+    
+</body>
+</html>
